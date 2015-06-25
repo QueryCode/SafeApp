@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.donnie.safe.LostProtectSettingActivity" >
+
+    <TextView
+        style="@style/title"
+        android:text="手机防盗" />
+
+    <View style="@style/view_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机安全号码为:"
+            android:textColor="#11cd6e"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/setting_safe_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="123"
+            android:textSize="25dp" />
+    </RelativeLayout>
+	<include layout="@layout/line"/>
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="防盗保护设置:"
+            android:textColor="#11cd6e"
+            android:textSize="20dp" />
+
+        <CheckBox 
+            android:id="@+id/setting_protected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="防盗保护已经开启"
+            android:checked="true"
+            android:textSize="15dp"
+            />
+    </RelativeLayout>
+    <include layout="@layout/line"/>
+    <TextView
+        android:id="@+id/setting_reset"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="重新进入设置向导"
+        android:textSize="20dp"
+        android:textColor="#11cd6e"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+    <include layout="@layout/line"/>
+    
+    <TextView
+        android:paddingTop="30dp"
+        style="@style/text_content_style"
+        android:text="#*location*#获取手机的位置\n#*delete*#手机设置为出厂模式\n#*lockscreen*#给手机加密锁定屏幕\n#*alarm*#发出报警音乐"
+        />
+    "
+</LinearLayout>

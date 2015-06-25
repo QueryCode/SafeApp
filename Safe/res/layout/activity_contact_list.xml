@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.donnie.safe.ContactListActivity" >
+
+    <TextView 
+        style="@style/title"
+        android:text="选择联系人"
+        />
+    
+    <View 
+        style="@style/view_line"
+        />
+    
+    <ListView 
+        android:id="@+id/lv_contact"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        ></ListView>
+
+</LinearLayout>

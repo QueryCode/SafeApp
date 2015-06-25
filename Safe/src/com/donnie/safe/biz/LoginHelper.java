@@ -1,7 +1,9 @@
 package com.donnie.safe.biz;
+import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.donnie.safe.MainActivity;
 import com.donnie.safe.R;
 import com.donnie.safe.bean.UpdateBean;
 import com.donnie.safe.utils.XmlParseUtil;
@@ -9,8 +11,11 @@ import com.donnie.safe.utils.XmlParseUtil;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
@@ -27,6 +32,10 @@ public class LoginHelper {
 		private static LoginHelper login;
 		private Activity context;
 		private final int UPDATA = 11;
+		private final int CONNECTERROR = 12;
+		private final int SERVERERROR = 13;
+		private final int DOWNLOADERROR = 14;
+		private ProgressDialog pd;
 		private UpdateBean bean;
 		
 		private LoginHelper(Activity context){
@@ -70,7 +79,7 @@ public class LoginHelper {
 					//连接成功
 				bean = XmlParseUtil.getUpdateInfo(con.getInputStream());
 				if (bean!=null) {
-					if (bean.getVersion()==VersionHelper.getVersion(context)) {
+					if (bean.getVersion().equals(VersionHelper.getVersion(context))) {
 						enterMain();
 					}else {
 						msg.what = UPDATA;
@@ -79,11 +88,14 @@ public class LoginHelper {
 				}
 				} else {
 					//连接失败	
-					Toast.makeText(context, "连接服务器失败", Toast.LENGTH_LONG).show();
+					msg.what = SERVERERROR;
+					handler.sendMessage(msg);
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				msg.what = CONNECTERROR;
+				handler.sendMessage(msg);
 		}
 	}
 		/**
@@ -94,7 +106,9 @@ public class LoginHelper {
 		 * @return void
 		 */
 		private void enterMain(){
-			
+			Intent intent = new Intent(context, MainActivity.class);
+			context.startActivity(intent);
+			context.finish();
 		}
 		
 		private Handler handler = new Handler(){
@@ -104,8 +118,17 @@ public class LoginHelper {
 					case UPDATA:
 						updateTipDialog();
 						break;
-
-					default:
+					case CONNECTERROR:
+						Toast.makeText(context, "连接服务器失败", Toast.LENGTH_SHORT).show();
+						enterMain();
+						break;
+					case SERVERERROR:
+						Toast.makeText(context, "连接服务器出错", Toast.LENGTH_SHORT).show();
+						enterMain();
+						break;
+					case DOWNLOADERROR:
+						Toast.makeText(context, "下载失败", Toast.LENGTH_SHORT).show();
+						enterMain();
 						break;
 					}
 					super.handleMessage(msg);
@@ -130,7 +153,7 @@ public class LoginHelper {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					
+					updateApk();
 				}
 			});
 			
@@ -147,4 +170,40 @@ public class LoginHelper {
 		}
 		
 		
+		
+		protected void updateApk() {
+			// TODO Auto-generated method stub
+			pd = new ProgressDialog(context);
+			pd.setTitle("正在下载......");
+			pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			pd.show();
+			
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					File file = DownloadHelper.getApkFile(bean.getApkUrl(),pd);
+					pd.dismiss();
+					if (file==null) {
+						Message msg = new Message();
+						msg.what = DOWNLOADERROR;
+						handler.sendMessage(msg);
+					}else {
+						Intent intent = new Intent();
+						intent.setAction("android.intent.action.VIEW");
+						intent.addCategory("android.intent.category.DEFAULT");
+						intent.setData(Uri.fromFile(file));
+						intent.setType("application/vnd.android.package-archive");
+						context.startActivity(intent);
+						context.finish();
+					}
+				}
+			}).start();
+			
+		}
+
+		public void destory(){
+			login = null;
+		}
 }

@@ -1,11 +1,17 @@
 package com.donnie.safe.activity;
 
+import com.donnie.safe.MainActivity;
 import com.donnie.safe.R;
+import com.donnie.safe.biz.Const;
 import com.donnie.safe.biz.LoginHelper;
+import com.donnie.safe.biz.SafePreference;
 import com.donnie.safe.biz.VersionHelper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.AlphaAnimation;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -27,7 +33,46 @@ public class SplashActivity extends Activity {
 		
 		tv_splash_version.setText("版本号:"+VersionHelper.getVersion(this));
 		
-		LoginHelper.getInstance(this).loginConnect();
+		AlphaAnimation anim = new AlphaAnimation(0f, 1.0f);
+		anim.setDuration(3000);
+		RelativeLayout splash_bg = (RelativeLayout)findViewById(R.id.splash_bg);
+		splash_bg.setAnimation(anim);
+		
+		if (SafePreference.getBoo(this, Const.ISUPDATE)) {
+			LoginHelper.getInstance(this).loginConnect();
+		}else {
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					SplashActivity.this.runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+							SplashActivity.this.startActivity(intent);
+							SplashActivity.this.finish();
+						}
+					});
+				}
+			}).start();
+		}
+		
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		LoginHelper.getInstance(this).destory();
+		super.onDestroy();
 	}
 
 }

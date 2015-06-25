@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -15,6 +15,59 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <style name="title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dip</item>
+        <item name="android:textColor">#11cd6e</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    
+    <style name="view_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dip</item>
+        <item name="android:background">@drawable/devide_line</item>
+        <item name="android:layout_marginTop">5dip</item>
+    </style>
+    
+    <style name="text_content_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#11cd6e</item>
+        <item name="android:layout_marginTop">10dip</item>
+    </style>
+    
+    <style name="image_start_online_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">5dip</item>
+        <item name="android:src">@android:drawable/presence_online</item>
+    </style>
+    
+    <style name="image_start_offine_style" parent="image_start_online_style">
+        <item name="android:src">@android:drawable/presence_invisible</item>
+    </style>
+    
+    <style name="button_next_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:text">下一步</item>
+        <item name="android:drawableRight">@drawable/next</item>
+    </style>
+    
+    <style name="button_up_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:text">上一步</item>
+        <item name="android:drawableLeft">@drawable/up</item>
     </style>
 
 </resources>

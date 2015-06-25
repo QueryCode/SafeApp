@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.donnie.safe.SetupConfig3Activity" >
+
+    <TextView 
+        style="@style/title"
+        android:text="3.设置安全密码"
+        android:gravity="left"
+        />
+    <View 
+        style="@style/view_line"
+        />
+    <TextView 
+        style="@style/text_content_style"
+        android:text="一旦SIM卡变更,\n报警短信将会发送到安全号码上"
+        />
+    
+   <EditText 
+       android:id="@+id/safe_number"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:hint="请输入安全号码或选择一个号码"
+       />
+   <Button 
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:background="@color/item_btn"
+       android:textSize="25dp"
+       android:text="选择联系人"
+       android:onClick="selectContacts"
+       />
+	
+ 
+     <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        >
+        <ImageView 
+            style="@style/image_start_offine_style"
+            />
+        <ImageView 
+            style="@style/image_start_offine_style"
+            />
+        <ImageView 
+            style="@style/image_start_online_style"
+            />
+       <ImageView 
+           style="@style/image_start_offine_style"
+            />
+    </LinearLayout>
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/number"
+            />
+        <Button 
+            style="@style/button_up_style"
+            android:onClick="up"
+            />
+        
+        <Button 
+            style="@style/button_next_style"
+            android:onClick="next"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.donnie.safe.Setup4ConfigActivity" >
+
+   <TextView 
+       style="@style/title"
+       android:gravity="left"
+       android:text="4.恭喜你设置完成"
+       />
+   
+   <View 
+       style="@style/view_line"
+       />
+   
+   <TextView 
+       style="@style/text_content_style"
+       android:text="强烈建议你开启防盗保护"
+       />
+   
+   <CheckBox 
+       android:id="@+id/start_protect"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:checked="false"
+       android:text="防盗保护没有开启"
+       />
+   
+   <LinearLayout 
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center"
+       android:orientation="horizontal"
+       >
+       <ImageView 
+           style="@style/image_start_offine_style"
+           />
+        <ImageView 
+           style="@style/image_start_offine_style"
+           />
+         <ImageView 
+           style="@style/image_start_offine_style"
+           />
+          <ImageView 
+           style="@style/image_start_online_style"
+           />
+   </LinearLayout>
+
+   <RelativeLayout 
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       >
+       <ImageView 
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerInParent="true"
+           android:src="@drawable/jianpan"
+           />
+       
+       <Button 
+           style="@style/button_up_style"
+           android:onClick="up"
+           />
+       
+       <Button 
+           style="@style/button_next_style"
+           android:text="设置完成"
+           android:onClick="next"
+           />
+   </RelativeLayout>
+   
+</LinearLayout>
