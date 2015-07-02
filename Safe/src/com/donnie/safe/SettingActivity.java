@@ -2,18 +2,23 @@ package com.donnie.safe;
 
 import com.donnie.safe.biz.Const;
 import com.donnie.safe.biz.SafePreference;
+import com.donnie.safe.service.ShowAddressService;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class SettingActivity extends Activity {
 
 	private CheckBox is_update;
+	private CheckBox open_address;
+	private Boolean is_open_address;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,39 @@ public class SettingActivity extends Activity {
 		setContentView(R.layout.activity_setting);
 		
 		is_update = (CheckBox)findViewById(R.id.is_update);
+		open_address = (CheckBox)findViewById(R.id.open_address);
+		is_open_address = SafePreference.getBoo(this, Const.IS_OPEN_ADDRESS);
+		
+		if (is_open_address) {
+			open_address.setChecked(true);
+			Intent intent = new Intent(SettingActivity.this, ShowAddressService.class);
+			startService(intent);
+		}else {
+			open_address.setChecked(false);
+			Intent intent = new Intent(SettingActivity.this, ShowAddressService.class);
+			stopService(intent);
+		}
+		open_address.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (is_open_address) {
+					open_address.setChecked(false);
+					Toast.makeText(SettingActivity.this, "归属服务已关闭", Toast.LENGTH_SHORT).show();
+					SafePreference.save(SettingActivity.this, Const.IS_OPEN_ADDRESS, false);
+					
+					Intent intent = new Intent(SettingActivity.this, ShowAddressService.class);
+					stopService(intent);
+				}else {
+					open_address.setChecked(true);
+					Toast.makeText(SettingActivity.this, "归属服务已开启", Toast.LENGTH_SHORT).show();
+					SafePreference.save(SettingActivity.this, Const.IS_OPEN_ADDRESS, true);
+					Intent intent = new Intent(SettingActivity.this, ShowAddressService.class);
+					startService(intent);
+				}
+			}
+		});
 		
 		Boolean isupdate = SafePreference.getBoo(getApplicationContext(), Const.ISUPDATE);
 		if (isupdate) {

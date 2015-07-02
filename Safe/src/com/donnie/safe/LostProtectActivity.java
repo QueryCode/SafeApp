@@ -58,6 +58,8 @@ public class LostProtectActivity extends Activity {
 					finish();
 				}else {
 					Toast.makeText(getApplicationContext(), "输入有误，请重新输入！", Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+					startActivity(intent);
 				}
 			}
 		}).setNegativeButton("取消", new DialogInterface.OnClickListener() {

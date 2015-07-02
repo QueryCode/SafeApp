@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 
-import com.donnie.safe.ContactListActivity;
 import com.donnie.safe.bean.ContactInfo;
 
 /**  
@@ -54,5 +53,27 @@ public class ContactService {
 			}
 			c.close();
 			return contactInfos;
+		}
+		
+		public List<ContactInfo> getContacts(Context context){
+			Cursor cursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+
+			List<ContactInfo> info = new ArrayList<ContactInfo>();
+			while(cursor.moveToNext()){
+				ContactInfo contact = new ContactInfo();
+				int id = cursor.getInt((cursor.getColumnIndex(ContactsContract.Contacts._ID)));
+				contact.setId(id);
+				contact.setName(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+				Cursor cursor2 = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID+"=?", new String[]{String.valueOf(id)}, null);
+				String number = null;
+				for(cursor2.moveToFirst();!cursor2.isAfterLast();cursor2.moveToNext()){
+					number = cursor2.getString(cursor2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+				}
+				contact.setNumber(number);
+				info.add(contact);
+				cursor2.close();
+			}
+			cursor.close();
+			return info;
 		}
 }

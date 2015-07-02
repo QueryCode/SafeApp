@@ -1,6 +1,8 @@
 package com.donnie.safe.view;
 
 import com.donnie.safe.R;
+import com.donnie.safe.biz.Const;
+import com.donnie.safe.biz.SafePreference;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -76,7 +78,12 @@ public class MainAdapter extends BaseAdapter {
 		ImageView iv_main = (ImageView)view.findViewById(R.id.iv_main);
 		TextView tv_main = (TextView)view.findViewById(R.id.tv_main);
 		iv_main.setImageResource(iconArray[position]);
-		tv_main.setText(textArray[position]);
+		if (position == 0) {
+			String name = SafePreference.getStr(context, Const.LOSTPROTECT_NAME);
+			tv_main.setText(name);
+		}else {
+			tv_main.setText(textArray[position]);
+		}
 		
 		return view;
 	}

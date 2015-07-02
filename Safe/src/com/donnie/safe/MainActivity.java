@@ -38,8 +38,12 @@ public class MainActivity extends Activity {
 					MainActivity.this.startActivity(intent);
 					break;
 				case 7:
-					Intent intent7 = new Intent(MainActivity.this,SettingActivity.class);
+					Intent intent7 = new Intent(MainActivity.this,SupToolActivity.class);
 					startActivity(intent7);
+					break;
+				case 8:
+					Intent intent8 = new Intent(MainActivity.this,SettingActivity.class);
+					startActivity(intent8);
 					break;
 
 				default:

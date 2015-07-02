@@ -31,6 +31,7 @@ public class SetupConfig3Activity extends Activity {
 	public void selectContacts(View v){
 		Intent intent = new Intent(this, ContactListActivity.class);
 		startActivityForResult(intent, 100);
+		//Toast.makeText(getApplicationContext(), "准备查看联系人", Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override

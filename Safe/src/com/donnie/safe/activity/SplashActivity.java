@@ -23,7 +23,7 @@ import android.widget.TextView;
  *
  */
 public class SplashActivity extends Activity {
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +38,14 @@ public class SplashActivity extends Activity {
 		RelativeLayout splash_bg = (RelativeLayout)findViewById(R.id.splash_bg);
 		splash_bg.setAnimation(anim);
 		
+		/*AddressQueryService queryService = new AddressQueryService();
+		
+		boolean isExsit = queryService.isExist();
+		if (isExsit) {
+			Toast.makeText(SplashActivity.this, "数据库存在", Toast.LENGTH_SHORT).show();
+		}else {
+			Toast.makeText(SplashActivity.this, "数据库不存在", Toast.LENGTH_SHORT).show();
+		}*/
 		if (SafePreference.getBoo(this, Const.ISUPDATE)) {
 			LoginHelper.getInstance(this).loginConnect();
 		}else {

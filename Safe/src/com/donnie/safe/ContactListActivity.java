@@ -21,15 +21,17 @@ public class ContactListActivity extends Activity {
 	
 	private ContactInfoAdapter adapter;
 	
+	private List<ContactInfo> contacts;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
 		
-		lv_contact = (ListView)super.findViewById(R.id.lv_contact);
+		lv_contact = (ListView)findViewById(R.id.contacts);
 		
 		service = new ContactService(this);
-		List<ContactInfo> contacts = service.getContacts();
+		contacts = service.getContacts(this);
 		
 		adapter = new ContactInfoAdapter(this, contacts);
 		lv_contact.setAdapter(adapter);

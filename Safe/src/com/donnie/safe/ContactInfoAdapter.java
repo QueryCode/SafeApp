@@ -24,6 +24,7 @@ public class ContactInfoAdapter extends BaseAdapter{
 	private Context context;
 	private List<ContactInfo> contacts;
 	private LayoutInflater inflater;
+	private TextView tv_name,tv_number;
 	
 	public ContactInfoAdapter(Context context,List<ContactInfo> contacts) {
 		// TODO Auto-generated constructor stub
@@ -54,8 +55,8 @@ public class ContactInfoAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.contact_item, null);
-		TextView tv_name = (TextView)view.findViewById(R.id.tv_name);
-		TextView tv_number = (TextView)view.findViewById(R.id.tv_number);
+		tv_name = (TextView)view.findViewById(R.id.name);
+		tv_number = (TextView)view.findViewById(R.id.number);
 		
 		ContactInfo info = contacts.get(position);
 		tv_name.setText(info.getName());

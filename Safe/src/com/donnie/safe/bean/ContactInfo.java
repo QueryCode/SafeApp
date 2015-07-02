@@ -9,8 +9,16 @@ package com.donnie.safe.bean;
  */
 public class ContactInfo {
 	
+	private int id;
 	private String name;
 	private String number;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

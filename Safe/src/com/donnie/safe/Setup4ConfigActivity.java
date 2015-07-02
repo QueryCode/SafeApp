@@ -2,15 +2,17 @@ package com.donnie.safe;
 
 import com.donnie.safe.biz.Const;
 import com.donnie.safe.biz.SafePreference;
+import com.donnie.safe.service.MyAdmin;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -18,10 +20,12 @@ import android.widget.CheckBox;
 public class Setup4ConfigActivity extends Activity {
 	
 	private CheckBox start_protect;
+	private DevicePolicyManager devicePolicyManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		devicePolicyManager = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
 		setContentView(R.layout.activity_setup4_config);
 		
 		start_protect = (CheckBox) findViewById(R.id.start_protect);
@@ -52,6 +56,8 @@ public class Setup4ConfigActivity extends Activity {
 						start_protect.setChecked(true);
 						start_protect.setText("防盗保护已经开启");
 						SafePreference.save(getApplicationContext(), Const.ISPROTECTED, true);
+
+						activeAdmin();
 					}
 					break;
 
@@ -59,7 +65,18 @@ public class Setup4ConfigActivity extends Activity {
 					break;
 				}
 			}
+	
 		});
+	}
+	private void activeAdmin() {
+		ComponentName componentName = new ComponentName(Setup4ConfigActivity.this, MyAdmin.class);
+		boolean isAdminActive = devicePolicyManager.isAdminActive(componentName);
+		if (!isAdminActive) {
+			Intent intent = new Intent();
+			intent.setAction(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+			intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+			startActivity(intent);
+		}
 	}
 
 	public void up(View v){

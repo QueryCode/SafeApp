@@ -83,6 +83,42 @@
             android:name=".LostProtectSettingActivity"
             android:label="@string/title_activity_lost_protect_setting_main" >
         </activity>
+
+        <receiver android:name=".service.PhoneReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".service.SmsReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".service.MyAdmin" >
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/my_admin" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".service.BootCompleteReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        
+        <service android:name="com.donnie.safe.service.ShowAddressService"></service>
+
+        <activity
+            android:name=".SupToolActivity"
+            android:label="@string/title_activity_sup_tool" >
+        </activity>
+        <activity
+            android:name=".AddressQueryActivity"
+            android:label="@string/title_activity_address_query" >
+        </activity>
     </application>
 
 </manifest>
