@@ -20,5 +20,7 @@ public class Const {
 	public static final String ISBIND_SIM = "isbind_sim";
 	public static final String LAST_LOCATION = "last_location";
 	public static final String IS_OPEN_ADDRESS = "is_open_address";
+	public static final String X = "x";
+	public static final String Y = "y";
 	
 }

@@ -32,5 +32,10 @@ public class SafePreference {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(Const.PREFERENCE_NAME, 0);
 		return sharedPreferences.getBoolean(key, false);
 	}
+	
+	public static int getInt(Context context,String key){
+		SharedPreferences sharedPreferences = context.getSharedPreferences(Const.PREFERENCE_NAME, 0);
+		return sharedPreferences.getInt(key, 0);
+	}
 
 }

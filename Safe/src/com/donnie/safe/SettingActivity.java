@@ -12,13 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SettingActivity extends Activity {
 
 	private CheckBox is_update;
 	private CheckBox open_address;
-	private Boolean is_open_address;
+	private TextView change_location;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,35 +28,46 @@ public class SettingActivity extends Activity {
 		
 		is_update = (CheckBox)findViewById(R.id.is_update);
 		open_address = (CheckBox)findViewById(R.id.open_address);
-		is_open_address = SafePreference.getBoo(this, Const.IS_OPEN_ADDRESS);
+		change_location = (TextView)findViewById(R.id.tv_setting_change_location);
+		
+		change_location.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(SettingActivity.this, DragViewActivity.class);
+				startActivity(intent);
+			}
+		});
+		boolean is_open_address = SafePreference.getBoo(this, Const.IS_OPEN_ADDRESS);
 		
 		if (is_open_address) {
 			open_address.setChecked(true);
-			Intent intent = new Intent(SettingActivity.this, ShowAddressService.class);
-			startService(intent);
+			Intent intent = new Intent(this, ShowAddressService.class);
+			//startService(intent);
 		}else {
 			open_address.setChecked(false);
-			Intent intent = new Intent(SettingActivity.this, ShowAddressService.class);
-			stopService(intent);
+			Intent intent = new Intent(this, ShowAddressService.class);
+			//stopService(intent);
 		}
 		open_address.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (is_open_address) {
-					open_address.setChecked(false);
-					Toast.makeText(SettingActivity.this, "归属服务已关闭", Toast.LENGTH_SHORT).show();
-					SafePreference.save(SettingActivity.this, Const.IS_OPEN_ADDRESS, false);
-					
-					Intent intent = new Intent(SettingActivity.this, ShowAddressService.class);
-					stopService(intent);
-				}else {
+				if (open_address.isChecked()) {
 					open_address.setChecked(true);
 					Toast.makeText(SettingActivity.this, "归属服务已开启", Toast.LENGTH_SHORT).show();
 					SafePreference.save(SettingActivity.this, Const.IS_OPEN_ADDRESS, true);
+					
 					Intent intent = new Intent(SettingActivity.this, ShowAddressService.class);
-					startService(intent);
+					//startService(intent);
+				}else {
+					open_address.setChecked(false);
+					Toast.makeText(SettingActivity.this, "归属服务已关闭", Toast.LENGTH_SHORT).show();
+					SafePreference.save(SettingActivity.this, Const.IS_OPEN_ADDRESS, false);
+					Intent intent = new Intent(SettingActivity.this, ShowAddressService.class);
+					//stopService(intent);
 				}
 			}
 		});

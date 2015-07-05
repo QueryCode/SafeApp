@@ -12,10 +12,8 @@ import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +60,7 @@ public class ShowAddressService extends Service{
 				Toast.makeText(getApplicationContext(), "显示归属地", Toast.LENGTH_SHORT).show();
 				List<PhoneInfo> query = queryService.query(incomingNumber);
 				for (PhoneInfo info : query) {
+					tv_number.setText(incomingNumber);
 					tv_address.setText(info.getCity());
 				}
 				

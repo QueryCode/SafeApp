@@ -108,8 +108,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        
-        <service android:name="com.donnie.safe.service.ShowAddressService"></service>
 
         <activity
             android:name=".SupToolActivity"
@@ -118,6 +116,16 @@
         <activity
             android:name=".AddressQueryActivity"
             android:label="@string/title_activity_address_query" >
+        </activity>
+
+        <service android:name=".service.ShowAddressService" >
+        </service>
+
+        <activity
+            android:name=".DragViewActivity"
+            android:label="@string/title_activity_drag_view" 
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            >
         </activity>
     </application>
 
