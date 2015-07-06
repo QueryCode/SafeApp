@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DragViewActivity extends Activity {
 	
