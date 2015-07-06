@@ -7,12 +7,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class SetupConfig3Activity extends Activity {
 
 	private EditText safe_number;
+	private Button choose_number;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,18 +23,23 @@ public class SetupConfig3Activity extends Activity {
 		setContentView(R.layout.activity_setup_config3);
 		
 		safe_number = (EditText)findViewById(R.id.safe_number);
+		choose_number = (Button)findViewById(R.id.choose_number);
 		String safe_numbers = SafePreference.getStr(getApplicationContext(), Const.SAFE_NUMBER);
 		if ("".equals(safe_numbers)) {
 			
 		}else {
 			safe_number.setText(safe_numbers);
 		}
-	}
-
-	public void selectContacts(View v){
-		Intent intent = new Intent(this, ContactListActivity.class);
-		startActivityForResult(intent, 100);
-		//Toast.makeText(getApplicationContext(), "准备查看联系人", Toast.LENGTH_SHORT).show();
+		
+		choose_number.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(SetupConfig3Activity.this, ContactListActivity.class);
+				startActivityForResult(intent, 100);
+			}
+		});
 	}
 	
 	@Override

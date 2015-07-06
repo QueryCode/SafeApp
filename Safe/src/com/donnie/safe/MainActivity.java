@@ -37,6 +37,10 @@ public class MainActivity extends Activity {
 					Intent intent = new Intent(MainActivity.this,LostProtectActivity.class);
 					MainActivity.this.startActivity(intent);
 					break;
+				case 1:
+					Intent intent1 = new Intent(MainActivity.this, BlackListActivity.class);
+					MainActivity.this.startActivity(intent1);
+					break;
 				case 7:
 					Intent intent7 = new Intent(MainActivity.this,SupToolActivity.class);
 					startActivity(intent7);

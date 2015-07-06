@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.donnie.safe.R;
 import com.donnie.safe.bean.PhoneInfo;
+import com.donnie.safe.biz.Const;
+import com.donnie.safe.biz.SafePreference;
 
 import android.app.Service;
 import android.content.Context;
@@ -69,6 +71,8 @@ public class ShowAddressService extends Service{
 				params.width = WindowManager.LayoutParams.WRAP_CONTENT;
 				params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | 
 						WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+				params.x = params.x+SafePreference.getInt(getApplicationContext(), Const.X);
+				params.y = params.y+SafePreference.getInt(getApplicationContext(), Const.Y);
 				params.format = PixelFormat.TRANSLUCENT;
 				params.type = WindowManager.LayoutParams.TYPE_TOAST;
 				windowManager.addView(view, params);

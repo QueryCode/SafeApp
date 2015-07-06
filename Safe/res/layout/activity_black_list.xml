@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.donnie.safe.BlackListActivity" >
+
+    <TextView
+        style="@style/title"
+        android:text="通讯卫士" />
+    
+    <View 
+        style="@style/view_line"
+        />
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    	android:layout_marginRight="@dimen/activity_horizontal_margin"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#11cd6e"
+            android:text="黑名单管理"
+            android:layout_alignParentLeft="true"
+            />
+        <Button 
+            android:id="@+id/tv_add_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/add"
+            />
+    </RelativeLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
+        <ListView 
+            android:id="@+id/lv_blacknumber"
+            android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:scrollbars="none"
+        	android:divider="@android:color/transparent"
+        	android:dividerHeight="@dimen/activity_horizontal_margin"
+        	android:clipToPadding="false"
+        	android:paddingTop="@dimen/activity_vertical_margin"
+        	android:paddingBottom="@dimen/activity_vertical_margin"
+            ></ListView>
+        <TextView 
+            android:id="@+id/empty"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="黑名单记录为空"
+            />
+    </LinearLayout>
+
+</LinearLayout>

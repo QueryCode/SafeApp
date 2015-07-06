@@ -25,12 +25,12 @@
        android:hint="请输入安全号码或选择一个号码"
        />
    <Button 
+       android:id="@+id/choose_number"
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
        android:background="@color/item_btn"
        android:textSize="25dp"
        android:text="选择联系人"
-       android:onClick="selectContacts"
        />
 	
  

@@ -73,7 +73,8 @@
         </activity>
         <activity
             android:name=".ContactListActivity"
-            android:label="@string/title_activity_contact_list" >
+            android:label="@string/title_activity_contact_list"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
         <activity
             android:name=".Setup4ConfigActivity"
@@ -123,9 +124,12 @@
 
         <activity
             android:name=".DragViewActivity"
-            android:label="@string/title_activity_drag_view" 
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
-            >
+            android:label="@string/title_activity_drag_view"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name=".BlackListActivity"
+            android:label="@string/title_activity_black_list" >
         </activity>
     </application>
 
