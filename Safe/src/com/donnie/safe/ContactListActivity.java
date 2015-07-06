@@ -30,10 +30,10 @@ public class ContactListActivity extends Activity {
 		
 		lv_contact = (ListView)findViewById(R.id.contacts);
 		
-		service = new ContactService(this);
-		contacts = service.getContacts(this);
+		service = new ContactService(ContactListActivity.this);
+		contacts = service.getContacts(ContactListActivity.this);
 		
-		adapter = new ContactInfoAdapter(this, contacts);
+		adapter = new ContactInfoAdapter(ContactListActivity.this, contacts);
 		lv_contact.setAdapter(adapter);
 		
 		lv_contact.setOnItemClickListener(new OnItemClickListener() {
