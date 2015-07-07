@@ -3,6 +3,7 @@ package com.donnie.safe.service;
 import com.donnie.safe.R;
 import com.donnie.safe.biz.Const;
 import com.donnie.safe.biz.SafePreference;
+import com.donnie.safe.db.BlackNumberOperator;
 
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
@@ -23,17 +24,21 @@ import android.telephony.gsm.SmsMessage;
 public class SmsReceiver extends BroadcastReceiver{
 
 	private DevicePolicyManager devicePolicyManager;
+	private BlackNumberOperator operator;
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
 		Boolean isprotected = SafePreference.getBoo(context, Const.ISPROTECTED);
+		operator = new BlackNumberOperator(context);
 		if (isprotected) {
 			devicePolicyManager = (DevicePolicyManager)context.getSystemService(Context.DEVICE_POLICY_SERVICE);
 			Object[] pdus = (Object[])intent.getExtras().get("pdus");
 			for (Object pdu : pdus) {
 				SmsMessage smsMessage = SmsMessage.createFromPdu((byte[])pdu);
 				String body = smsMessage.getDisplayMessageBody();
+				String address = smsMessage.getDisplayOriginatingAddress();
 				String safe_number = SafePreference.getStr(context, Const.SAFE_NUMBER);
 				if ("#*location*#".equals(body)) {
 					GPSInfoService service = GPSInfoService.getInstance(context);
@@ -51,6 +56,11 @@ public class SmsReceiver extends BroadcastReceiver{
 					mediaPlayer.start();
 					abortBroadcast();
 				}else if (body.contains("6+1")||body.contains("cctv")) {
+					abortBroadcast();
+				}
+				
+				boolean isBlackNumber = operator.isBlackNumber(address);
+				if (isBlackNumber) {
 					abortBroadcast();
 				}
 			}
