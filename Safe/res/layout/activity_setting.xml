@@ -93,5 +93,37 @@
         android:textColor="#ffffff"
         android:textSize="18sp"
         />
-
+    <View 
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@android:color/white"
+        />
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+    <TextView 
+        android:id="@+id/open_blacknumber_service"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingTop="15dip"
+       	android:paddingBottom="10dip"
+        android:text="开启来电黑名单服务"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        />
+    <CheckBox 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:id="@+id/cb_blacknumber_phone"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        />
+</RelativeLayout>
 </LinearLayout>

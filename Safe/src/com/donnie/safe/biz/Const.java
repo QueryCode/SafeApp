@@ -22,5 +22,6 @@ public class Const {
 	public static final String IS_OPEN_ADDRESS = "is_open_address";
 	public static final String X = "x";
 	public static final String Y = "y";
+	public static final String ISBLACKNUMBER = "isblacknumber";
 	
 }

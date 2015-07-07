@@ -2,6 +2,7 @@ package com.donnie.safe;
 
 import com.donnie.safe.biz.Const;
 import com.donnie.safe.biz.SafePreference;
+import com.donnie.safe.service.BlackNumberService;
 import com.donnie.safe.service.ShowAddressService;
 
 import android.app.Activity;
@@ -20,6 +21,7 @@ public class SettingActivity extends Activity {
 	private CheckBox is_update;
 	private CheckBox open_address;
 	private TextView change_location;
+	private CheckBox open_blacknumber;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,36 @@ public class SettingActivity extends Activity {
 		is_update = (CheckBox)findViewById(R.id.is_update);
 		open_address = (CheckBox)findViewById(R.id.open_address);
 		change_location = (TextView)findViewById(R.id.tv_setting_change_location);
+		open_blacknumber = (CheckBox)findViewById(R.id.cb_blacknumber_phone);
+		
+		Boolean isblacknumber = SafePreference.getBoo(SettingActivity.this, Const.ISBLACKNUMBER);
+		if (isblacknumber) {
+			open_blacknumber.setChecked(true);
+			Intent service = new Intent(this, BlackNumberService.class);
+			startService(service);
+		}else {
+			open_blacknumber.setChecked(false);
+		}
+		
+		open_blacknumber.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Boolean isblacknumber = SafePreference.getBoo(SettingActivity.this, Const.ISBLACKNUMBER);
+				if (isblacknumber) {
+					open_blacknumber.setChecked(false);
+					Toast.makeText(SettingActivity.this, "来电黑名单已关闭", Toast.LENGTH_SHORT).show();
+					SafePreference.save(SettingActivity.this, Const.ISBLACKNUMBER, false);
+				}else {
+					open_blacknumber.setChecked(true);
+					Toast.makeText(SettingActivity.this, "来电黑名单已开启", Toast.LENGTH_SHORT).show();
+					SafePreference.save(SettingActivity.this, Const.ISBLACKNUMBER, true);
+					Intent service = new Intent(SettingActivity.this, BlackNumberService.class);
+					startService(service);
+				}
+			}
+		});
 		
 		change_location.setOnClickListener(new OnClickListener() {
 			
