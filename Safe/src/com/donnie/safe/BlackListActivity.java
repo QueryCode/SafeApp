@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,15 +30,19 @@ public class BlackListActivity extends Activity {
 
 	private Button add_blacknumber;
 	private ListView lv_blacknumber;
-	private TextView empty,input_blacknumber;
+	private TextView empty;
+	private EditText input_blacknumber;
 	private BlackNumberOperator operator;
 	private BlackAdapter adapter;
 	private View view;
 	private LayoutInflater inflater;
+	private String blacknumber;
+	private AlertDialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		blacknumber = getIntent().getStringExtra("number");
 		setContentView(R.layout.activity_black_list);
 		
 		add_blacknumber = (Button)findViewById(R.id.tv_add_black);
@@ -44,13 +50,62 @@ public class BlackListActivity extends Activity {
 		empty = (TextView)findViewById(R.id.empty);
 		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		view = LayoutInflater.from(BlackListActivity.this).inflate(R.layout.add_black, null);
-		input_blacknumber = (TextView)view.findViewById(R.id.input_blacknumber);
+		input_blacknumber = (EditText)view.findViewById(R.id.input_blacknumber);
 		lv_blacknumber.setEmptyView(empty);
 		operator = new BlackNumberOperator(this);
 		List<String> all = operator.findAll();
 		adapter = new BlackAdapter(this, all);
 		lv_blacknumber.setAdapter(adapter);
 		registerForContextMenu(lv_blacknumber);
+		if (blacknumber!=null) {
+			boolean isblacknumber = operator.isBlackNumber(blacknumber);
+			if (!isblacknumber) {
+				ViewGroup parent = (ViewGroup)view.getParent();
+				if (parent!=null) {
+					parent.removeAllViews();
+				}
+				input_blacknumber.setText(blacknumber);
+				AlertDialog.Builder builder = new Builder(BlackListActivity.this)
+				.setIcon(R.drawable.black)
+				.setTitle("添加黑名单")
+				.setView(view)
+				.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						
+						String number = input_blacknumber.getText().toString();
+						if ("".equals(number)) {
+							Toast.makeText(getApplicationContext(), "黑名单号码不能为空!", Toast.LENGTH_SHORT).show();
+						}else {
+							boolean isBlackNumber = operator.isBlackNumber(number);
+							if (isBlackNumber) {
+								Toast.makeText(getApplicationContext(), "该号码存在黑名单中!!", Toast.LENGTH_SHORT).show();
+							}else {
+								operator.add(number);
+								Toast.makeText(getApplicationContext(), "黑名单添加成功", Toast.LENGTH_SHORT).show();
+								dialog.dismiss();
+								List<String> list = operator.findAll();
+								adapter.setNumbers(list);
+								adapter.notifyDataSetChanged();
+							}
+						}
+						
+					}
+				}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
+				dialog = builder.create();
+				dialog.show();
+			}
+			
+		}
 		add_blacknumber.setOnClickListener(new OnClickListener() {
 		
 			@Override
@@ -96,7 +151,8 @@ public class BlackListActivity extends Activity {
 						dialog.dismiss();
 					}
 				});
-				builder.create().show();
+				dialog = builder.create();
+				dialog.show();
 			}
 		});
 	}
@@ -116,7 +172,7 @@ public class BlackListActivity extends Activity {
 		// TODO Auto-generated method stub
 		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo)item.getMenuInfo();
 		int position = menuInfo.position;
-		String number = (String)adapter.getItem(position);
+		blacknumber = (String)adapter.getItem(position);
 		int id = item.getItemId();
 		switch (id) {
 		case 0:
@@ -125,7 +181,7 @@ public class BlackListActivity extends Activity {
 				parent.removeAllViews();
 			}
 			
-			input_blacknumber.setText(number);
+			input_blacknumber.setText(blacknumber);
 			AlertDialog.Builder builder = new Builder(this)
 			.setTitle("更新黑名单")
 			.setView(view)
@@ -142,7 +198,7 @@ public class BlackListActivity extends Activity {
 						if (isBlackNumber) {
 							Toast.makeText(getApplicationContext(), "该号码存在黑名单中!!", Toast.LENGTH_SHORT).show();
 						}else {
-							int _id = operator.queryId(number);
+							int _id = operator.queryId(blacknumber);
 							operator.update(_id, number);
 							Toast.makeText(getApplicationContext(), "黑名单更新成功", Toast.LENGTH_SHORT).show();
 							dialog.dismiss();
@@ -160,10 +216,14 @@ public class BlackListActivity extends Activity {
 					dialog.dismiss();
 				}
 			});
-			builder.create().show();
+			dialog = builder.create();
+			dialog.show();
 			break;
 		case 1:
-			
+			operator.delete(blacknumber);
+			List<String> list = operator.findAll();
+			adapter.setNumbers(list);
+			adapter.notifyDataSetChanged();
 			break;
 
 		default:
@@ -171,6 +231,65 @@ public class BlackListActivity extends Activity {
 		}
 		
 		return super.onContextItemSelected(item);
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		// TODO Auto-generated method stub
+		super.onNewIntent(intent);
+		blacknumber = intent.getStringExtra("number");
+		if (blacknumber!=null) {
+			boolean isblacknumber = operator.isBlackNumber(blacknumber);
+			if (!isblacknumber) {
+				ViewGroup parent = (ViewGroup)view.getParent();
+				if (parent!=null) {
+					parent.removeAllViews();
+				}
+				input_blacknumber.setText(blacknumber);
+				if (dialog != null) {
+					dialog.dismiss();
+				}
+				AlertDialog.Builder builder = new Builder(BlackListActivity.this)
+				.setIcon(R.drawable.black)
+				.setTitle("添加黑名单")
+				.setView(view)
+				.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						
+						String number = input_blacknumber.getText().toString();
+						if ("".equals(number)) {
+							Toast.makeText(getApplicationContext(), "黑名单号码不能为空!", Toast.LENGTH_SHORT).show();
+						}else {
+							boolean isBlackNumber = operator.isBlackNumber(number);
+							if (isBlackNumber) {
+								Toast.makeText(getApplicationContext(), "该号码存在黑名单中!!", Toast.LENGTH_SHORT).show();
+							}else {
+								operator.add(number);
+								Toast.makeText(getApplicationContext(), "黑名单添加成功", Toast.LENGTH_SHORT).show();
+								dialog.dismiss();
+								List<String> list = operator.findAll();
+								adapter.setNumbers(list);
+								adapter.notifyDataSetChanged();
+							}
+						}
+						
+					}
+				}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
+				dialog = builder.create();
+				dialog.show();
+			}
+			
+		}
 	}
 
 	@Override
