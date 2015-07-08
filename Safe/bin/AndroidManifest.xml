@@ -142,6 +142,10 @@
             android:name=".AppManagerActivity"
             android:label="@string/title_activity_app_manager" >
         </activity>
+        <activity
+            android:name=".AppLockManagerActivity"
+            android:label="@string/title_activity_app_lock_manager" >
+        </activity>
     </application>
 
 </manifest>

@@ -50,9 +50,21 @@ public class AppInfoService {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			boolean isUserApp = filterApp(appInfo);
+			info.setUserApp(isUserApp);
 			appInfos.add(info);
 		}
 		return appInfos;
+	}
+	
+	//判断是否是用户程序
+	public boolean filterApp(ApplicationInfo info){
+		if ((info.flags&ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)!=0) {
+			return true;
+		}else if ((info.flags&ApplicationInfo.FLAG_SYSTEM)==0) {
+			return true;
+		}
+		return false;
 	}
 
 }

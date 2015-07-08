@@ -19,6 +19,26 @@ public class AppInfo {
 	private String app_version;
 	
 	private String packagename;
+	
+	private boolean isUserApp;
+
+	public boolean isUserApp() {
+		return isUserApp;
+	}
+
+	public void setUserApp(boolean isUserApp) {
+		this.isUserApp = isUserApp;
+	}
+
+	public AppInfo(Drawable app_icon, String app_name, String app_version,
+			String packagename, boolean isUserApp) {
+		super();
+		this.app_icon = app_icon;
+		this.app_name = app_name;
+		this.app_version = app_version;
+		this.packagename = packagename;
+		this.isUserApp = isUserApp;
+	}
 
 	public AppInfo(Drawable app_icon, String app_name, String app_version) {
 		super();

@@ -3,12 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.donnie.safe.AppManagerActivity" >
+    tools:context="com.donnie.safe.AppLockManagerActivity" >
 
     <TextView
-        android:id="@+id/tv_title"
         style="@style/title"
-        android:text="全 部 程 序"
+        android:text="程 序 锁"
         />
     
     <View 
@@ -20,7 +19,7 @@
         android:layout_height="fill_parent"
         >
         <ListView 
-        android:id="@+id/appmanage"
+        android:id="@+id/applockmanage"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:cacheColorHint="#00000000"
@@ -32,13 +31,13 @@
         ></ListView>
         
         <RelativeLayout 
-            android:id="@+id/rl_loading"
+            android:id="@+id/rl_lockloading"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
             >
             <ProgressBar 
-                android:id="@+id/pb_bar"
+                android:id="@+id/pb_lockbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@android:style/Widget.ProgressBar.Inverse"
@@ -47,7 +46,7 @@
             <TextView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/pb_bar"
+                android:layout_toRightOf="@id/pb_lockbar"
                 android:text="正在加载应用......"
                 android:layout_centerVertical="true"
                 />

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/listbg_normal"
+    android:orientation="horizontal"
+    android:paddingBottom="8.0dip"
+    android:paddingRight="5.0dip"
+    android:paddingLeft="6.0dip"
+    android:paddingTop="8.0dip">
+    
+     <ImageView 
+        android:id="@+id/applockicon"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_social_fb"
+        />
+    
+    <TextView 
+        android:id="@+id/applockname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="4.0dip"
+        android:layout_toRightOf="@id/applockicon"
+        android:textColor="#ff000000"
+        android:textSize="16.0dip"
+        android:text="software"
+        />
+    
+    <ImageView 
+        android:id="@+id/isapplock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="4.0dip"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/lock_open"
+        />
+
+</RelativeLayout>
