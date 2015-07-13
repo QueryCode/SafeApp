@@ -3,9 +3,12 @@ package com.donnie.safe;
 import java.util.List;
 
 import com.donnie.safe.bean.AppInfo;
+import com.donnie.safe.db.AppLockOperator;
 import com.donnie.safe.service.AppInfoService;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,11 +34,14 @@ public class AppLockManagerActivity extends Activity {
 	private AppInfoService appInfoService;
 	private List<AppInfo> appInfos;
 	private AppLockManagerAdapter mAdapter;
+	private AppLockOperator operator;
+	private List<String> appLocks;//程序锁应用集合
 	
 	private Handler mhandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case SUCCESS_GET_APPLICATION:
+				appLocks = operator.findAll();
 				mAdapter = new AppLockManagerAdapter();
 				lv_applockmanage.setAdapter(mAdapter);
 				rl_lockloading.setVisibility(View.GONE);
@@ -60,6 +69,42 @@ public class AppLockManagerActivity extends Activity {
 				mhandler.sendMessage(msg);
 			}
 		}.start();
+		
+		operator = new AppLockOperator(this);
+		lv_applockmanage.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				ImageView iv_lock = ((ViewHolder)view.getTag()).iv_lock;
+				AppInfo info = (AppInfo) mAdapter.getItem(position);
+				//boolean isLockApp = operator.isLockApp(info.getPackagename());
+				boolean isLockApp = appLocks.contains(info.getPackagename());
+				if (isLockApp) {
+					//直接操作数据库
+					//operator.delete(info.getPackagename());
+					Uri uri = Uri.parse("content://applock/applock");
+					String where = " packageName = ?";
+					String[] selectionArgs = new String[]{info.getPackagename()};
+					//操作内容提供者来操作数据库
+					getContentResolver().delete(uri, where, selectionArgs);
+					appLocks.remove(info.getPackagename());
+					iv_lock.setImageResource(R.drawable.lock_open);
+				}else {
+					//operator.add(info.getPackagename());
+					Uri uri = Uri.parse("content://applock/applock");
+					ContentValues values = new ContentValues();
+					values.put("packageName", info.getPackagename());
+					getContentResolver().insert(uri,values);
+					//appLocks.add(info.getPackagename());
+					iv_lock.setImageResource(R.drawable.lock_close);
+				}
+				TranslateAnimation animation = new TranslateAnimation(0, 1000, 0, 0);
+				animation.setDuration(500);
+				view.startAnimation(animation);
+			}
+		});
 	}
 	
 	private final class AppLockManagerAdapter extends BaseAdapter{
@@ -93,22 +138,44 @@ public class AppLockManagerActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
 			View view = null;
+			ViewHolder holder = null;
 			if (convertView != null) {
 				view = convertView;
+				holder = (ViewHolder) view.getTag();
 			}else {
 				view = mInflater.inflate(R.layout.app_lock_item, null);
+				holder = new ViewHolder();
+				holder.iv_appicon = (ImageView) view.findViewById(R.id.applockicon);
+				holder.tv_appname = (TextView) view.findViewById(R.id.applockname);
+				holder.iv_lock = (ImageView) view.findViewById(R.id.isapplock);
+				view.setTag(holder);
 			}
 			AppInfo appInfo = appInfos.get(position);
-			ImageView iv_appicon = (ImageView) view.findViewById(R.id.applockicon);
-			TextView tv_appname = (TextView) view.findViewById(R.id.applockname);
-			ImageView iv_lock = (ImageView)view.findViewById(R.id.isapplock);
+
+			ImageView iv_appicon = holder.iv_appicon;
+			TextView tv_appname = holder.tv_appname;
+			ImageView iv_lock = holder.iv_lock;
 			
 			iv_appicon.setImageDrawable(appInfo.getApp_icon());
 			tv_appname.setText(appInfo.getApp_name());
 			
+			//boolean isLockApp = operator.isLockApp(appInfo.getPackagename());
+			boolean isLockApp = appLocks.contains(appInfo.getPackagename());
+			if (isLockApp) {
+				iv_lock.setImageResource(R.drawable.lock_close);
+			}else {
+				iv_lock.setImageResource(R.drawable.lock_open);
+			}
+			
 			return view;
 		}
 		
+	}
+	
+	static class ViewHolder{
+		ImageView iv_appicon;
+		TextView tv_appname;
+		ImageView iv_lock;
 	}
 
 }

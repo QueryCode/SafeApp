@@ -34,7 +34,8 @@ public class AppLockDBHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		db.execSQL("create table applock()");
+		db.execSQL("create table applock(_id integer primary key autoincrement,"
+				+ "packageName text)");
 	}
 
 	@Override
