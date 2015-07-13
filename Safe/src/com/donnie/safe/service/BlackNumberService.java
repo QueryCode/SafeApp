@@ -26,7 +26,7 @@ import android.telephony.TelephonyManager;
 /**  
  * @Title: BlackNumberService.java
  * @Package com.donnie.safe.service
- * @Description: TODO(添加描述)
+ * @Description: TODO(黑名单服务)
  * @author donnieSky
  * @date 2015年7月7日 上午9:38:14   
  * @version V1.0  
@@ -79,7 +79,7 @@ public class BlackNumberService extends Service{
 					Notification notification = new Notification(R.drawable.voice, "拦截到来电一声响", System.currentTimeMillis());
 					Intent intent = new Intent(getApplicationContext(), BlackListActivity.class);
 					intent.putExtra("number", incomingNumber);
-					PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 100, intent, 0);
+					PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 					notification.setLatestEventInfo(getApplicationContext(), "来电一声响", "拦截到来电一声响", contentIntent);
 					notification.flags = Notification.FLAG_AUTO_CANCEL;
 					notificationManager.notify(100,notification);

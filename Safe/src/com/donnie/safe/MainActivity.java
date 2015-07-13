@@ -45,6 +45,10 @@ public class MainActivity extends Activity {
 					Intent intent2 = new Intent(MainActivity.this, AppManagerActivity.class);
 					MainActivity.this.startActivity(intent2);
 					break;
+				case 3:
+					Intent intent3 = new Intent(MainActivity.this, TaskManagerActivity.class);
+					MainActivity.this.startActivity(intent3);
+					break;
 				case 7:
 					Intent intent7 = new Intent(MainActivity.this,SupToolActivity.class);
 					startActivity(intent7);

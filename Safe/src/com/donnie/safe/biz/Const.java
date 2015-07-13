@@ -23,5 +23,6 @@ public class Const {
 	public static final String X = "x";
 	public static final String Y = "y";
 	public static final String ISBLACKNUMBER = "isblacknumber";
+	public static final String ISAPPLOCK = "isapplock";
 	
 }

@@ -2,6 +2,7 @@ package com.donnie.safe;
 
 import com.donnie.safe.biz.Const;
 import com.donnie.safe.biz.SafePreference;
+import com.donnie.safe.service.AppLockService;
 import com.donnie.safe.service.BlackNumberService;
 import com.donnie.safe.service.ShowAddressService;
 
@@ -21,7 +22,7 @@ public class SettingActivity extends Activity {
 	private CheckBox is_update;
 	private CheckBox open_address;
 	private TextView change_location;
-	private CheckBox open_blacknumber;
+	private CheckBox open_blacknumber,open_applock;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,42 @@ public class SettingActivity extends Activity {
 		open_address = (CheckBox)findViewById(R.id.open_address);
 		change_location = (TextView)findViewById(R.id.tv_setting_change_location);
 		open_blacknumber = (CheckBox)findViewById(R.id.cb_blacknumber_phone);
+		open_applock = (CheckBox)findViewById(R.id.cb_applock_phone);
+		
+		Boolean isAppLock = SafePreference.getBoo(getApplicationContext(), Const.ISAPPLOCK);
+		if (isAppLock) {
+			open_applock.setChecked(true);
+			Toast.makeText(getApplicationContext(), "程序锁已开启", 0).show();
+			Intent intent = new Intent(getApplicationContext(),AppLockService.class);
+			startService(intent);
+		}else {
+			open_applock.setChecked(false);
+			Toast.makeText(getApplicationContext(), "程序锁已关闭", 0).show();
+			Intent intent= new Intent(getApplicationContext(),AppLockService.class);
+			stopService(intent);
+		}
+		
+		open_applock.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Boolean isAppLock = SafePreference.getBoo(getApplicationContext(), Const.ISAPPLOCK);
+				if (isAppLock) {
+					open_applock.setChecked(false);
+					Toast.makeText(getApplicationContext(), "程序锁已关闭", 0).show();
+					SafePreference.save(getApplicationContext(), Const.ISAPPLOCK, false);
+					Intent intent = new Intent(getApplicationContext(),AppLockService.class);
+					stopService(intent);
+				}else {
+					open_applock.setChecked(true);
+					Toast.makeText(getApplicationContext(), "程序锁已打开", 0).show();
+					SafePreference.save(getApplicationContext(), Const.ISAPPLOCK, true);
+					Intent intent = new Intent(getApplicationContext(),AppLockService.class);
+					startService(intent);
+				}
+			}
+		});
 		
 		Boolean isblacknumber = SafePreference.getBoo(SettingActivity.this, Const.ISBLACKNUMBER);
 		if (isblacknumber) {

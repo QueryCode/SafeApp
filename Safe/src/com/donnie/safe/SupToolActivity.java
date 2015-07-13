@@ -67,6 +67,7 @@ public class SupToolActivity extends Activity {
 						}else if(safe_pwd.equals(md5_pwd)){
 							Intent intent = new Intent(getApplicationContext(),AppLockManagerActivity.class);
 							startActivity(intent);
+							dialog.dismiss();
 						}else {
 							Toast.makeText(getApplicationContext(), "密码输入错误", 0).show();
 						}
