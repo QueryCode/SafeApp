@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
@@ -87,7 +85,7 @@ public class AppLockManagerActivity extends Activity {
 					Uri uri = Uri.parse("content://applock/applock");
 					String where = " packageName = ?";
 					String[] selectionArgs = new String[]{info.getPackagename()};
-					//操作内容提供者来操作数据库
+					//通过内容提供者来操作数据库
 					getContentResolver().delete(uri, where, selectionArgs);
 					appLocks.remove(info.getPackagename());
 					iv_lock.setImageResource(R.drawable.lock_open);

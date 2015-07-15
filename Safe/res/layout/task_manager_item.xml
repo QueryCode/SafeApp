@@ -40,4 +40,13 @@
         android:textColor="#ff000000"
         android:textSize="10.0dip" />
     
+    <CheckBox 
+        android:id="@+id/cb_task_manager_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:focusable="false"
+        android:clickable="false"
+        />
 </RelativeLayout>

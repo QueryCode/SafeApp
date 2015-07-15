@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.donnie.safe.TaskManagerSettingActivity" >
+
+    <TextView
+        style="@style/title"
+        android:text="进 程 管 理 设 置" />
+    
+    <View 
+        style="@style/view_line"
+        />
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dip"
+       	android:paddingBottom="10dip"
+        android:textColor="#ffffff"
+        android:text="显示设置"
+        android:textSize="18sp"
+        android:layout_weight="1"
+        />
+    <CheckBox 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="显示系统进程"
+        android:id="@+id/choose_clean"
+        />
+    </LinearLayout>
+    <View 
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@android:color/white"
+        />
+    
+     <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dip"
+       	android:paddingBottom="10dip"
+        android:textColor="#ffffff"
+        android:text="自动清理进程"
+        android:textSize="18sp"
+        android:layout_weight="1"
+        />
+    <CheckBox 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="锁屏清理进程"
+        android:id="@+id/lock_clean"
+        />
+    </LinearLayout>
+    <View 
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@android:color/white"
+        />
+
+</LinearLayout>

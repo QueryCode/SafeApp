@@ -21,5 +21,6 @@
     <string name="title_activity_app_lock_manager">AppLockManagerActivity</string>
     <string name="title_activity_enter_password">EnterPasswordActivity</string>
     <string name="title_activity_task_manager">TaskManagerActivity</string>
+    <string name="title_activity_task_manager_setting">TaskManagerSettingActivity</string>
 
 </resources>

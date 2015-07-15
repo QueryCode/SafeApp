@@ -27,6 +27,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -81,6 +82,22 @@ public class AppManagerActivity extends Activity {
 		rl_loading = (RelativeLayout)findViewById(R.id.rl_loading);
 		lv_appmanage = (ListView)findViewById(R.id.appmanage);
 		tv_title = (TextView)findViewById(R.id.tv_title);
+		
+		lv_appmanage.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				AppInfo appInfo = (AppInfo)mAdapter.getItem(position);
+				String packagename = appInfo.getPackagename();
+				Intent intent = new Intent();
+				intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+				intent.setData(Uri.parse("package:"+packagename));
+				startActivity(intent);
+				return true;
+			}
+		});
 		
 		lv_appmanage.setOnItemClickListener(new OnItemClickListener() {
 

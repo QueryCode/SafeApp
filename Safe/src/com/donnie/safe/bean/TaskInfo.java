@@ -17,7 +17,25 @@ public class TaskInfo {
 	private String packageName;
 	private int pid;
 	private long task_memory;
+	private boolean isChecked;
+	private boolean isUserTask;
 	
+	public boolean isUserTask() {
+		return isUserTask;
+	}
+	
+	public void setUserTask(boolean isUserTask) {
+		this.isUserTask = isUserTask;
+	}
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
+	}
+
 	public TaskInfo() {
 		super();
 		// TODO Auto-generated constructor stub

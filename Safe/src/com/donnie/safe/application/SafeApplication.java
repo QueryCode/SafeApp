@@ -12,7 +12,7 @@ import android.app.Application;
  */
 public class SafeApplication extends Application{
 	
-	private String packname;
+	private String packname;//包名
 	
 	public String getPackname() {
 		return packname;

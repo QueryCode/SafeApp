@@ -24,5 +24,7 @@ public class Const {
 	public static final String Y = "y";
 	public static final String ISBLACKNUMBER = "isblacknumber";
 	public static final String ISAPPLOCK = "isapplock";
+	public static final String ISDISPLAYSYSTEM = "isdisplaysystem";
+	public static final String ISAUTOCLEAR = "isautoclear";
 	
 }

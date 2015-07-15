@@ -17,6 +17,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:paddingLeft="3.0dip"
+        android:paddingRight="3.0dip"
         >
         <TextView 
             android:id="@+id/tv_task_count"
@@ -37,7 +39,8 @@
     
     <FrameLayout 
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
         >
         <ListView 
         android:id="@+id/lv_taskmanager"
@@ -74,4 +77,25 @@
         </RelativeLayout>
     </FrameLayout>
 
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <Button 
+            android:id="@+id/btn_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一键清理"
+            android:layout_weight="1"
+            />
+        <Button 
+            android:id="@+id/btn_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="程序设置"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
 </LinearLayout>

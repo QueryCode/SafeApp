@@ -24,6 +24,9 @@ public class BootCompleteReceiver extends BroadcastReceiver{
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
+		Intent service = new Intent(context, AutoClearService.class);
+		context.startService(service);
+		
 		tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
 		Boolean isprotected = SafePreference.getBoo(context, Const.ISPROTECTED);
 		if (isprotected) {

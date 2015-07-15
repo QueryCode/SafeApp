@@ -80,9 +80,13 @@ public class TaskUtil {
 				}else {
 					taskInfo.setTask_icon(task_icon);
 				}
+				boolean isUserTask = filterApp(appinfo);
+				taskInfo.setUserTask(isUserTask);
 			} catch (NameNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				taskInfo.setTask_icon(context.getResources().getDrawable(R.drawable.ic_launcher));
+				taskInfo.setTask_name(packageName);
 			}
 			android.os.Debug.MemoryInfo[] memoryInfos = manager.getProcessMemoryInfo(new int[]{pid});
 			android.os.Debug.MemoryInfo memoryInfo = memoryInfos[0];
@@ -93,4 +97,26 @@ public class TaskUtil {
 		return taskInfos;
 	}
 
+	//判断是否是用户程序
+		public static boolean filterApp(ApplicationInfo info){
+			if ((info.flags&ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)!=0) {
+				return true;
+			}else if ((info.flags&ApplicationInfo.FLAG_SYSTEM)==0) {
+				return true;
+			}
+			return false;
+		}
+		
+		/**
+		 * @Description: TODO(杀死所有的进程) 
+		 * @param 
+		 */
+		public static void killAllProcess(Context context){
+			ActivityManager manager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+			List<RunningAppProcessInfo> runningAppProcesses = manager.getRunningAppProcesses();
+			for (RunningAppProcessInfo info : runningAppProcesses) {
+				manager.killBackgroundProcesses(info.processName);
+			}
+		}
+	
 }

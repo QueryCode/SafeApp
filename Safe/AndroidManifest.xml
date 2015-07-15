@@ -166,6 +166,12 @@
             android:name=".TaskManagerActivity"
             android:label="@string/title_activity_task_manager" >
         </activity>
+        <activity
+            android:name=".TaskManagerSettingActivity"
+            android:label="@string/title_activity_task_manager_setting" >
+        </activity>
+        
+        <service android:name="com.donnie.safe.service.AutoClearService"></service>
     </application>
 
 </manifest>
