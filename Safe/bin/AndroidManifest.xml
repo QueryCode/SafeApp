@@ -36,7 +36,7 @@
     <application
         android:name=".application.SafeApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/safe_main"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Black.NoTitleBar" >
         <activity
@@ -170,8 +170,36 @@
             android:name=".TaskManagerSettingActivity"
             android:label="@string/title_activity_task_manager_setting" >
         </activity>
-        
-        <service android:name="com.donnie.safe.service.AutoClearService"></service>
+
+        <service android:name=".service.AutoClearService" >
+        </service>
+
+        <receiver android:name=".service.ProcessReceiver" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_provider" />
+        </receiver>
+        <receiver android:name=".service.KillProcessReceiver" >
+            <intent-filter>
+                <action android:name="com.donnie.killprocess" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.ProcessWidgetService" >
+        </service>
+
+        <activity
+            android:name=".TrafficManagerActivity"
+            android:label="@string/title_activity_traffic_manager" >
+        </activity>
+        <activity
+            android:name=".KillVirusActivity"
+            android:label="@string/title_activity_kill_virus" >
+        </activity>
     </application>
 
 </manifest>
