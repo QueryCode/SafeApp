@@ -95,7 +95,7 @@ public class AppLockManagerActivity extends Activity {
 					ContentValues values = new ContentValues();
 					values.put("packageName", info.getPackagename());
 					getContentResolver().insert(uri,values);
-					//appLocks.add(info.getPackagename());
+					appLocks.add(info.getPackagename());
 					iv_lock.setImageResource(R.drawable.lock_close);
 				}
 				TranslateAnimation animation = new TranslateAnimation(0, 1000, 0, 0);
