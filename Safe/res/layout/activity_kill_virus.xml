@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.donnie.safe.KillVirusActivity" >
+
+    <TextView 
+        style="@style/title"
+        android:text="病 毒 查 杀"
+        />
+    
+    <View 
+        style="@style/view_line"
+        />
+    
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:padding="10dp"
+        >
+    
+    <ImageView 
+        android:id="@+id/iv_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/scan"
+        />
+    
+    <ProgressBar 
+        android:id="@+id/pb"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_scan"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        />
+    </RelativeLayout>
+    <ScrollView 
+        android:id="@+id/scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        >
+        <LinearLayout 
+            android:id="@+id/ll_info"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            ></LinearLayout>
+    </ScrollView>
+    
+    <Button 
+        android:id="@+id/btn_kill_virus"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="开始扫描"
+        />
+
+</LinearLayout>
