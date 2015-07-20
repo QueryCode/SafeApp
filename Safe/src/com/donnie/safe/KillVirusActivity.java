@@ -10,6 +10,7 @@ import java.util.List;
 import com.donnie.safe.utils.MD5;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -18,10 +19,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,12 +32,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class KillVirusActivity extends Activity {
 
 	private final static int SCANING = 0;
 	private final static int FINISH_SCAN = 1;
-	private Button btn_kill_virus;
+	private Button btn_kill_virus,btn_killed;
 	private ImageView iv_scan;
 	private ScrollView scrollView;
 	private ProgressBar pb;
@@ -60,8 +62,11 @@ public class KillVirusActivity extends Activity {
 				TextView tv = new TextView(getApplicationContext());
 				if (existvirus.size()>0) {
 					tv.setText("扫描了"+size+"个应用程序,发现了"+existvirus.size()+"个病毒!");
+					Toast.makeText(getApplicationContext(), "扫描了"+size+"个应用程序,发现了"+existvirus.size()+"个病毒!", 0).show();
+					btn_killed.setEnabled(true);
 				}else {
 					tv.setText("扫描了"+size+"个应用程序,发现了"+existvirus.size()+"个病毒!");
+					Toast.makeText(getApplicationContext(), "扫描了"+size+"个应用程序,发现了"+existvirus.size()+"个病毒!", 0).show();
 				}
 				ll_info.addView(tv);
 				ad.stop();
@@ -78,6 +83,7 @@ public class KillVirusActivity extends Activity {
 		setContentView(R.layout.activity_kill_virus);
 		
 		btn_kill_virus = (Button)findViewById(R.id.btn_kill_virus);
+		btn_killed = (Button) findViewById(R.id.btn_killed);
 		iv_scan = (ImageView)findViewById(R.id.iv_scan);
 		scrollView = (ScrollView)findViewById(R.id.scrollview);
 		pb = (ProgressBar)findViewById(R.id.pb);
@@ -158,7 +164,6 @@ public class KillVirusActivity extends Activity {
 								existvirus.add(packageName);
 							}
 							pb.incrementProgressBy(1);
-							SystemClock.sleep(100);
 						}
 						Message message = new Message();
 						
@@ -167,6 +172,20 @@ public class KillVirusActivity extends Activity {
 						mHandler.sendMessage(message);
 					};
 				}.start();
+			}
+		});
+		
+		btn_killed.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				for (String packageName : existvirus) {
+					Intent intent = new Intent();
+					intent.setAction(Intent.ACTION_DELETE);
+					intent.setData(Uri.parse("package:"+packageName));
+					startActivity(intent);
+				}
 			}
 		});
 	}

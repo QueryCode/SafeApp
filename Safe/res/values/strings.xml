@@ -24,5 +24,6 @@
     <string name="title_activity_task_manager_setting">TaskManagerSettingActivity</string>
     <string name="title_activity_traffic_manager">TrafficManagerActivity</string>
     <string name="title_activity_kill_virus">KillVirusActivity</string>
+    <string name="title_activity_common_number">CommonNumberActivity</string>
 
 </resources>

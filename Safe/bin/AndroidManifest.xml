@@ -200,6 +200,10 @@
             android:name=".KillVirusActivity"
             android:label="@string/title_activity_kill_virus" >
         </activity>
+        <activity
+            android:name=".CommonNumberActivity"
+            android:label="@string/title_activity_common_number" >
+        </activity>
     </application>
 
 </manifest>

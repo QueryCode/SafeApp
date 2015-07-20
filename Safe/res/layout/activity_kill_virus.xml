@@ -25,15 +25,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/scan"
+        android:layout_centerVertical="true"
         />
     
-    <ProgressBar 
+    <ProgressBar
         android:id="@+id/pb"
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/iv_scan"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        />
+        android:layout_alignBottom="@+id/iv_scan"
+        android:layout_toLeftOf="@+id/btn_killed"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/iv_scan" />
+
+    <Button
+        android:id="@+id/btn_killed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:enabled="false"
+        android:text="杀死病毒" />
+
     </RelativeLayout>
     <ScrollView 
         android:id="@+id/scrollview"
