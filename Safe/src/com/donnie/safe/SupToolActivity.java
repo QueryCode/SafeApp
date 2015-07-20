@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 public class SupToolActivity extends Activity {
 	
-	private TextView tools_address_query,sms_backup,sms_restore,app_lock;
+	private TextView tools_address_query,sms_backup,sms_restore,app_lock,app_contact;
 	private ProgressDialog progress;
 	private SmsInfoService smsinfoService;
 
@@ -42,6 +42,17 @@ public class SupToolActivity extends Activity {
 		sms_backup = (TextView)findViewById(R.id.sms_backup);
 		sms_restore = (TextView)findViewById(R.id.sms_restore);
 		app_lock = (TextView)findViewById(R.id.app_lock);
+		app_contact = (TextView) findViewById(R.id.app_contact);
+		
+		app_contact.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getApplicationContext(), CommonNumberActivity.class);
+				startActivity(intent);
+			}
+		});
 		
 		app_lock.setOnClickListener(new OnClickListener() {
 			

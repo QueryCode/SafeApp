@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.donnie.safe.CommonNumberActivity" >
+
+    <TextView
+        style="@style/title"
+        android:text="常 用 号 码" />
+    
+    <View 
+        style="@style/view_line"
+        />
+    
+    <ExpandableListView 
+        android:id="@+id/elv_common_number"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        ></ExpandableListView>
+    
+
+</LinearLayout>
